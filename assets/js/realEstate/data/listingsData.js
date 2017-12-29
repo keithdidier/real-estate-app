@@ -43,7 +43,7 @@ var listingsData = [
         address: "446 center st",
         city: "Sacramento",
         state: "CA",
-        rooms: 1,
+        rooms: 0,
         price: 90000,
         floorSpace: 2000,
         extras: [

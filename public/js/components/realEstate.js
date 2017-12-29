@@ -43,7 +43,7 @@ var listingsData = [{
   address: "446 center st",
   city: "Sacramento",
   state: "CA",
-  rooms: 1,
+  rooms: 0,
   price: 90000,
   floorSpace: 2000,
   extras: ["elevator", "gym"],
@@ -99,6 +99,8 @@ var _listingsData2 = _interopRequireDefault(_listingsData);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -129,17 +131,31 @@ var App = function (_Component) {
       finished_basement: false,
       swimming_pool: false,
       gym: false,
-      filteredData: _listingsData2.default
+      filteredData: _listingsData2.default,
+      populateFormsData: "",
+      sortby: "price-desc"
     };
     _this.change = _this.change.bind(_this);
     _this.filteredData = _this.filteredData.bind(_this);
+    _this.populateForms = _this.populateForms.bind(_this);
     return _this;
   }
 
-  // Filter by state
-
-
   _createClass(App, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var listingsData = this.state.listingsData.sort(function (a, b) {
+        return a.price - b.price;
+      });
+
+      this.setState({
+        listingsData: listingsData
+      });
+    }
+
+    // Filter by state
+
+  }, {
     key: 'change',
     value: function change(event) {
       var _this2 = this;
@@ -157,7 +173,7 @@ var App = function (_Component) {
       var _this3 = this;
 
       var newData = this.state.listingsData.filter(function (item) {
-        return item.price >= _this3.state.min_price && item.price <= _this3.state.max_price && item.floorSpace >= _this3.state.min_floor_space && item.floorSpace <= _this3.state.max_floor_space;
+        return item.price >= _this3.state.min_price && item.price <= _this3.state.max_price && item.floorSpace >= _this3.state.min_floor_space && item.floorSpace <= _this3.state.max_floor_space && item.rooms >= _this3.state.bedrooms;
       });
 
       if (this.state.city != "All") {
@@ -172,8 +188,65 @@ var App = function (_Component) {
         });
       }
 
+      if (this.state.sortby == "price-desc") {
+        newData = newData.sort(function (a, b) {
+          return a.price - b.price;
+        });
+      }
+
+      if (this.state.sortby == "price-asc") {
+        newData = newData.sort(function (a, b) {
+          return b.price - a.price;
+        });
+      }
+
       this.setState({
         filteredData: newData
+      });
+    }
+  }, {
+    key: 'populateForms',
+    value: function populateForms() {
+      var _this4 = this;
+
+      // city
+      var cities = this.state.listingsData.map(function (item) {
+        return item.city;
+      });
+
+      cities = new Set(cities);
+      cities = [].concat(_toConsumableArray(cities));
+
+      cities = cities.sort();
+
+      // homeType
+      var homeTypes = this.state.listingsData.map(function (item) {
+        return item.homeType;
+      });
+
+      homeTypes = new Set(homeTypes);
+      homeTypes = [].concat(_toConsumableArray(homeTypes));
+
+      homeTypes = homeTypes.sort();
+
+      // bedrooms
+      var bedrooms = this.state.listingsData.map(function (item) {
+        return item.rooms;
+      });
+
+      bedrooms = new Set(bedrooms);
+      bedrooms = [].concat(_toConsumableArray(bedrooms));
+
+      bedrooms = bedrooms.sort();
+
+      this.setState({
+        populateFormsData: {
+          cities: cities,
+          homeTypes: homeTypes,
+          bedrooms: bedrooms
+        }
+      }, function () {
+        console.log(_this4.state);
       });
     }
   }, {
@@ -186,8 +259,8 @@ var App = function (_Component) {
         _react2.default.createElement(
           'section',
           { id: 'contect-area' },
-          _react2.default.createElement(_Filter2.default, { change: this.change, globalState: this.state }),
-          _react2.default.createElement(_Listings2.default, { listingsData: this.state.filteredData })
+          _react2.default.createElement(_Filter2.default, { change: this.change, globalState: this.state, populateAction: this.populateForms }),
+          _react2.default.createElement(_Listings2.default, { listingsData: this.state.filteredData, change: this.change })
         )
       );
     }
@@ -237,10 +310,64 @@ var Filter = function (_Component) {
     _this.state = {
       name: 'Joe'
     };
+    _this.cities = _this.cities.bind(_this);
+    _this.homeTypes = _this.homeTypes.bind(_this);
+    _this.bedrooms = _this.bedrooms.bind(_this);
     return _this;
   }
 
   _createClass(Filter, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.populateAction();
+    }
+  }, {
+    key: 'cities',
+    value: function cities() {
+      if (this.props.globalState.populateFormsData.cities != undefined) {
+        var cities = this.props.globalState.populateFormsData.cities;
+
+        return cities.map(function (item) {
+          return _react2.default.createElement(
+            'option',
+            { key: item, value: item },
+            item
+          );
+        });
+      }
+    }
+  }, {
+    key: 'homeTypes',
+    value: function homeTypes() {
+      if (this.props.globalState.populateFormsData.homeTypes != undefined) {
+        var homeTypes = this.props.globalState.populateFormsData.homeTypes;
+
+        return homeTypes.map(function (item) {
+          return _react2.default.createElement(
+            'option',
+            { key: item, value: item },
+            item
+          );
+        });
+      }
+    }
+  }, {
+    key: 'bedrooms',
+    value: function bedrooms() {
+      if (this.props.globalState.populateFormsData.bedrooms != undefined) {
+        var bedrooms = this.props.globalState.populateFormsData.bedrooms;
+
+        return bedrooms.map(function (item) {
+          return _react2.default.createElement(
+            'option',
+            { key: item, value: item },
+            item,
+            '+ BR'
+          );
+        });
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -255,6 +382,11 @@ var Filter = function (_Component) {
             'Filter'
           ),
           _react2.default.createElement(
+            'label',
+            { htmlFor: 'city' },
+            'City'
+          ),
+          _react2.default.createElement(
             'select',
             { name: 'city', className: 'filters-city', onChange: this.props.change },
             _react2.default.createElement(
@@ -262,16 +394,12 @@ var Filter = function (_Component) {
               { value: 'All' },
               'All'
             ),
-            _react2.default.createElement(
-              'option',
-              { value: 'Ridgewood' },
-              'Ridgewood'
-            ),
-            _react2.default.createElement(
-              'option',
-              { value: 'Miami' },
-              'Miami'
-            )
+            this.cities()
+          ),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'city' },
+            'Home Types'
           ),
           _react2.default.createElement(
             'select',
@@ -281,60 +409,17 @@ var Filter = function (_Component) {
               { value: 'All' },
               'All Homes'
             ),
-            _react2.default.createElement(
-              'option',
-              { value: 'Ranch' },
-              'Ranch'
-            ),
-            _react2.default.createElement(
-              'option',
-              { value: 'Condo' },
-              'Condo'
-            ),
-            _react2.default.createElement(
-              'option',
-              { value: 'Apartment' },
-              'Apartment'
-            ),
-            _react2.default.createElement(
-              'option',
-              { value: 'Studio' },
-              'Studio'
-            ),
-            _react2.default.createElement(
-              'option',
-              { value: 'Private room' },
-              'Private room'
-            )
+            this.homeTypes()
+          ),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'city' },
+            'Bedrooms'
           ),
           _react2.default.createElement(
             'select',
             { name: 'bedrooms', className: 'filters-bedrooms', onChange: this.props.change },
-            _react2.default.createElement(
-              'option',
-              { value: '0' },
-              '0+ BR'
-            ),
-            _react2.default.createElement(
-              'option',
-              { value: '1' },
-              '1+ BR'
-            ),
-            _react2.default.createElement(
-              'option',
-              { value: '2' },
-              '2+ BR'
-            ),
-            _react2.default.createElement(
-              'option',
-              { value: '3' },
-              '3+ BR'
-            ),
-            _react2.default.createElement(
-              'option',
-              { value: '4' },
-              '4+ BR'
-            )
+            this.bedrooms()
           ),
           _react2.default.createElement(
             'div',
@@ -672,16 +757,16 @@ var Listings = function (_Component) {
             { className: 'sort-options' },
             _react2.default.createElement(
               'select',
-              { name: 'sort-by', className: 'sort-by' },
-              _react2.default.createElement(
-                'option',
-                { value: 'price-asc' },
-                'Highest Price'
-              ),
+              { name: 'sortby', className: 'sort-by', onChange: this.props.change },
               _react2.default.createElement(
                 'option',
                 { value: 'price-desc' },
                 'Lowest Price'
+              ),
+              _react2.default.createElement(
+                'option',
+                { value: 'price-asc' },
+                'Highest Price'
               )
             ),
             _react2.default.createElement(

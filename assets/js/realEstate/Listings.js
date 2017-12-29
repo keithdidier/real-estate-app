@@ -68,9 +68,9 @@ export default class Listings extends Component {
         <section className="sort-by-area">
           <div className="results">390 results found</div>
           <div className="sort-options">
-            <select name="sort-by" className="sort-by">
-              <option value="price-asc">Highest Price</option>
+            <select name="sortby" className="sort-by" onChange={this.props.change}>
               <option value="price-desc">Lowest Price</option>
+              <option value="price-asc">Highest Price</option>
             </select>
             <div className="view">
               <i className="fa fa-th-list" aria-hidden="true"></i>
