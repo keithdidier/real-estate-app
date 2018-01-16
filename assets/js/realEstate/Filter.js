@@ -53,20 +53,22 @@ export default class Filter extends Component {
       <section id="filter">
         <div className="inside">
             <h4>Filter</h4>
-            <label htmlFor="city">City</label>
-            <select name="city" className="filters-city" onChange={this.props.change}>
-              <option value="All">All</option>
-              {this.cities()}
-            </select>
-            <label htmlFor="city">Home Types</label>
-            <select name="homeType" className="filters-homeType" onChange={this.props.change}>
-              <option value="All">All Homes</option>
-              {this.homeTypes()}
-            </select>
-            <label htmlFor="city">Bedrooms</label>
-            <select name="bedrooms" className="filters-bedrooms" onChange={this.props.change}>
-              {this.bedrooms()}
-            </select>
+            <div className="filters">
+              <label htmlFor="city" className="title">City</label>
+              <select name="city" className="filters-city" onChange={this.props.change}>
+                <option value="All">All</option>
+                {this.cities()}
+              </select>
+              <label htmlFor="city" className="title">Home Type</label>
+              <select name="homeType" className="filters-homeType" onChange={this.props.change}>
+                <option value="All" className="title">All Homes</option>
+                {this.homeTypes()}
+              </select>
+              <label htmlFor="city" className="title">Bedrooms</label>
+              <select name="bedrooms" className="filters-bedrooms" onChange={this.props.change}>
+                {this.bedrooms()}
+              </select>
+            </div>
             <div className="filters price">
               <span className="title">Price</span>
               <input value={this.props.globalState.min_price} type="text" name="min_price" className="min-price" onChange={this.props.change}/>

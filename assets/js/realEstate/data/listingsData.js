@@ -1,70 +1,112 @@
 var listingsData = [
   {
-    address: "20-34 grand ave",
-    city: "Ridgewood",
+    address: "65th St",
+    city: "Brooklyn",
     state: "NY",
-    rooms: 3,
-    price: 220000,
-    floorSpace: 2000,
-    extras: [
-      "elevator",
-      "gym"
-    ],
-    homeType: "Condo",
-    image: "http://media.equityapartments.com/images/c_crop,x_0,y_0,w_1920,h_1080/c_fill,w_1920,h_1080/q_80/4011-1/moda-apartments-exterior.jpg"
-  },
-  {
-    address: "32 Plank rd",
-    city: "Richmond",
-    state: "VA",
-    rooms: 3,
-    price: 250000,
-    floorSpace: 9000,
+    rooms: 2,
+    price: 3400,
+    floorSpace: 1120,
     extras: [
       "elevator",
       "gym"
     ],
     homeType: "Apartment",
-    image: "hhttps://media1.popsugar-assets.com/files/thumbor/cELyEDjdwnCsBVcDoNNsM1L1Qb4/fit-in/1024x1024/filters:format_auto-!!-:strip_icc-!!-/2016/08/03/014/n/1922794/0c56e233dfe915db_FINAL_33_Bedroom_revA/i/Gisele-Bundchen-Tom-Brady-Buy-NYC-Apartment.jpg"
+    image: "http://www.knockoutrenovation.com/images/portfolio/living-area/enlarge/Cumming-(5)---After.jpg"
+  },
+  {
+    address: "32 Plank Rd",
+    city: "Richmond",
+    state: "VA",
+    rooms: 5,
+    price: 2100,
+    floorSpace: 2461,
+    extras: [
+      "elevator",
+      "gym"
+    ],
+    homeType: "House",
+    image: "https://activerain-store.s3.amazonaws.com/image_store/uploads/2/2/0/9/2/ar128465254029022.jpg"
   },  {
-      address: "633 Banks dr",
-      city: "Clearwater",
+      address: "633 Bankers St",
+      city: "Miami",
       state: "FL",
-      rooms: 5,
-      price: 123000,
-      floorSpace: 1200,
+      rooms: 4,
+      price: 3500,
+      floorSpace: 1890,
       extras: [
         "elevator",
         "gym"
       ],
-      homeType: "Ranch",
-      image: "http://media.equityapartments.com/images/c_crop,x_0,y_0,w_1920,h_1080/c_fill,w_1920,h_1080/q_80/1416-8/schooner-bay-apartment-homes-building.jpg"
+      homeType: "Condo",
+      image: "https://photos.zillowstatic.com/p_e/ISek8wu3sw242y1000000000.jpg"
     },  {
         address: "446 center st",
-        city: "Sacramento",
+        city: "San Fransico",
         state: "CA",
         rooms: 0,
-        price: 90000,
-        floorSpace: 2000,
+        price: 4120,
+        floorSpace: 650,
         extras: [
           "elevator",
           "gym"
         ],
         homeType: "Studio",
-        image: "http://media.equityapartments.com/images/c_crop,x_0,y_0,w_1920,h_1080/c_fill,w_1920,h_1080/q_80/4011-1/moda-apartments-exterior.jpg"
+        image: "https://i.pinimg.com/originals/2d/9a/ab/2d9aabc9574d5d917abf77c6155cbfe3.jpg"
       },  {
-          address: "509 point rd",
-          city: "Provo",
+          address: "509 Point Rd",
+          city: "Salt Lake City",
           state: "UT",
-          rooms: 4,
-          price: 220000,
-          floorSpace: 2000,
+          rooms: 2,
+          price: 1325,
+          floorSpace: 1120,
           extras: [
             "elevator",
             "gym"
           ],
           homeType: "Apartment",
-          image: "http://media.equityapartments.com/images/c_crop,x_0,y_0,w_1920,h_1080/c_fill,w_1920,h_1080/q_80/4011-1/moda-apartments-exterior.jpg"
+          image: "https://photos.zillowstatic.com/p_e/ISyvqly02ohfho1000000000.jpg"
+        },
+        {
+          address: "691 Paris Ave",
+          city: "Las Vegas",
+          state: "NV",
+          rooms: 3,
+          price: 5399,
+          floorSpace: 2650,
+          extras: [
+            "elevator",
+            "gym"
+          ],
+          homeType: "House",
+          image: "http://hgtvhome.sndimg.com/content/dam/images/hgtv/fullset/2014/11/20/1/BP_HBBRP104H_Guest-House-Living-Room-After.jpg.rend.hgtvcom.966.725.suffix/1416536482212.jpeg"
+        },
+        {
+          address: "82 Piper St",
+          city: "Denver",
+          state: "CO",
+          rooms: 3,
+          price: 2280,
+          floorSpace: 1890,
+          extras: [
+            "elevator",
+            "gym"
+          ],
+          homeType: "Condo",
+          image: "http://www.c4build.com/sites/default/files/images/portfolio/condo_renovations_denver_colorado_i.jpg"
+        },
+        {
+          address: "12 Blunker Rd",
+          city: "Orlando",
+          state: "Fl",
+          rooms: 3,
+          price: 1690,
+          floorSpace: 2120,
+          extras: [
+            "elevator",
+            "gym"
+          ],
+          homeType: "House",
+          image: "http://jonathanmcgrathconstruction.com/new/wp-content/uploads/2012/02/Orlando-Home-Living-Room-After-Completed-Interior-Renovation-Remodeling-Project.jpg"
         },
 ]
 
